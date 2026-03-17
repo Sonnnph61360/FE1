@@ -10,44 +10,39 @@
 <h2>Phần 2. Sự kiện</h2>
 <button (click)="handleClick()">Thay đổi trạng thái</button>
 <h2>Phần 3. Tương tác 2 chiều (two way binding)</h2>
-<input type="text" placeholder="Chiều dài" [(ngModel)]="chieudai"/>
-<input type="text" placeholder="Chiều rộng" [(ngModel)]="chieurong"/>
-<button (click)="handleTinh()">Tính</button>
-<h1>{{dientich}}</h1>
-<p>---------------------</p>
-@if(show){
-    <h2>Xin chào Wd20337</h2>
+<input type="text" placeholder="Nhập gì đó" [(ngModel)]="title"/>
+<h2>Ứng dụng. Tạo chương trình tính diện tích hình chữ nhật</h2>
+<label> Chiều dài
+<input type="number" min="1" [(ngModel)] ="chieudai"/>
+</label>
+<label> Chiều rộng
+<input type="number" min="1" [(ngModel)] ="chieurong"/>
+</label>
+<button (click)="Caculator()">Tính</button>
+<label> Diện tích
+<input type="number" min="1" [(ngModel)] ="dientich"/>
+</label>
+<p>----------------------------------------------------</p>
+@if (show){
+    <h2>Xin chào WD20307</h2>
 }
 @else {
-    <h2>Tạm biệt Wd20307</h2>
+    <h2>Tạm biết WD20307</h2>
 }
-<button (click)="handleClick()">Thay đổi</button>
-<ul>
-    <ul>
-@for (todo of todos; track $index; let i=$index; let first=$first; let last=$last) {
-
-    @if(first){
-        <li style="font-weight:bold">
-            STT: {{i+1}} - {{todo.ten}} - {{todo.douuTien}}
-        </li>
+<button (click)="onChange()">Thay đổi</button>
+<input type="text" placeholder="tên cv" [(ngModel)]="name"/>
+<input type="text" placeholder="Ưu tiên" [(ngModel)]="priority"/>
+<button (click)="onAddTodo()">Thêm</button>
+<h1>Danh sách công việc cần làm</h1>
+<div>
+    @for (todo of todos; track $index;let i=$index;let e=$even;let first = $first;let last = $last) {
+        <!-- @if(e){
+            <li [style.font-weight]="(first)?'bold':''" [style.font-style]="(last)?'italic':''" [style.color]="'blue'">STT: {{i+1}}. {{todo.name}} - Độ ưu tiên: {{todo.priority}}</li>
+        }
+        @else{
+            <li [style.font-weight]="(first)?'bold':''" [style.font-style]="(last)?'italic':''" [style.color]="'red'">STT: {{i+1}}. {{todo.name}} - Độ ưu tiên: {{todo.priority}}</li>
+        } -->
+            <!-- <li [style.font-weight]="(first)?'bold':''" [style.font-style]="(last)?'italic':''" [style.color]="(e)?'blue':'red'">STT: {{i+1}}. {{todo.name}} - Độ ưu tiên: {{todo.priority}}</li> -->
+        <app-todoitem [todoInfo]="{todo:todo,last:last,first:first,even:e,index:i}"/>     
     }
-    @else if(last){
-        <li style="font-style:italic">
-            STT: {{i+1}} - {{todo.ten}} - {{todo.douuTien}}
-        </li>
-    }
-    @else{
-        <li>
-            STT: {{i+1}} - {{todo.ten}} - {{todo.douuTien}}
-        </li>
-    }
-
-}
-</ul>
-<h2>Thêm công việc</h2>
-
-<input type="text" placeholder="Tên công việc" [(ngModel)]="tenCongViec">
-
-<input type="text" placeholder="Độ ưu tiên" [(ngModel)]="douuTienInput">
-
-<button (click)="handleAddTodo()">Submit</button>
+</div>

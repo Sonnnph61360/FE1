@@ -1,54 +1,60 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { Header } from './component/header/header';
+import { Header } from './components/header/header';
 import { FormsModule } from '@angular/forms';
-interface Itodo {
-  ten: String;
-  monHoc: String;
-  douuTien: String;
-}
+import { ITodo } from './interface/todo';
+import { Todoitem } from './components/todoitem/todoitem';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, Header, FormsModule],
+  imports: [RouterOutlet,Header,FormsModule,Todoitem],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
 export class App {
-  title: string = 'Xin chào WD20307 - Ahihih'
-  classname: string = "text-red"
-  fontweight: string = 'font-bold'
-  show: boolean = true
-  color: string = 'red'
-
-  chieudai: number = 0
-  chieurong: number = 0
-  dientich: number = 0
-  tenCongViec: string = '';
-  douuTienInput: string = '';
-  todos: Itodo[] = [
-    { ten: "Sơn", douuTien: "Môn tiên Quyết", monHoc: "Java Scrict" },
-    { ten: "Sơn", douuTien: "Môn bình thường", monHoc: "Node Js" },
-    { ten: "Sơn", douuTien: "Môn hơi tiên quyết", monHoc: "Lập trình PHP" },
+  // protected readonly title = signal('wd20307');
+  title:string = 'Xin chào WD20307 - Ahihih'
+  classname:string = "text-red"
+  fontweight:string = 'font-bold'
+  show:boolean = true
+  color:string = 'red'
+  chieudai:number = 0
+  chieurong:number = 0
+  dientich:number = 0
+  name:string = ''
+  priority:string = ''
+  todos:ITodo[]=[
+    {
+      name:"Đi học",
+      priority:"Cao"
+    },
+    {
+      name:"Đi làm",
+      priority:"Trung bình"
+    },
+    {
+      name:"Tán gái",
+      priority:"Trung bình"
+    }
   ]
-
-  // tính diện tích
-  handleTinh = () => {
-    this.dientich = this.chieudai * this.chieurong
-  }
-  handleClick = () => {
-    this.classname = (this.classname == 'text-red') ? "text-blue" : 'text-red'
+  handleClick=()=>{
+    // alert("Ahihihi")
+    this.classname = (this.classname=='text-red')?"text-blue":'text-red'
     this.show = !this.show
   }
-  handleAddTodo = () => {
-  const newTodo:Itodo = {
-    ten: this.tenCongViec,
-    monHoc: 'Không có',
-    douuTien: this.douuTienInput
+  Caculator = ()=>{
+    this.dientich = this.chieudai*this.chieurong
   }
-
-  this.todos.push(newTodo)
-  this.tenCongViec = ''
-  this.douuTienInput = ''
-}
+  onChange =()=>{
+    this.show = !this.show
+  }
+  onAddTodo =()=>{
+    const newtodo:ITodo = {
+      name:this.name,
+      priority:this.priority
+    }
+    this.todos.push(newtodo)
+    this.name=''
+    this.priority=''
+  }
 }
