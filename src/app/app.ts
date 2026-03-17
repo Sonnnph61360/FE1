@@ -3,9 +3,9 @@ import { RouterOutlet } from '@angular/router';
 import { Header } from './component/header/header';
 import { FormsModule } from '@angular/forms';
 interface Itodo {
-  ten:String;
-  monHoc:String;
-  douuTien:String;
+  ten: String;
+  monHoc: String;
+  douuTien: String;
 }
 
 @Component({
@@ -23,19 +23,32 @@ export class App {
 
   chieudai: number = 0
   chieurong: number = 0
-  dientich:number = 0
-todos:Itodo[]=[
-  {ten:"Sơn",douuTien:"Môn tiên Quyết",monHoc:"Java Scrict"},
-  {ten:"Sơn",douuTien:"Môn bình thường",monHoc:"Node Js"},
-  {ten:"Sơn",douuTien:"Môn hơi tiên quyết",monHoc:"Lập trình PHP"},
-]
+  dientich: number = 0
+  tenCongViec: string = '';
+  douuTienInput: string = '';
+  todos: Itodo[] = [
+    { ten: "Sơn", douuTien: "Môn tiên Quyết", monHoc: "Java Scrict" },
+    { ten: "Sơn", douuTien: "Môn bình thường", monHoc: "Node Js" },
+    { ten: "Sơn", douuTien: "Môn hơi tiên quyết", monHoc: "Lập trình PHP" },
+  ]
 
   // tính diện tích
   handleTinh = () => {
-    this.dientich = this.chieudai*this.chieurong
+    this.dientich = this.chieudai * this.chieurong
   }
   handleClick = () => {
     this.classname = (this.classname == 'text-red') ? "text-blue" : 'text-red'
     this.show = !this.show
   }
+  handleAddTodo = () => {
+  const newTodo:Itodo = {
+    ten: this.tenCongViec,
+    monHoc: 'Không có',
+    douuTien: this.douuTienInput
+  }
+
+  this.todos.push(newTodo)
+  this.tenCongViec = ''
+  this.douuTienInput = ''
+}
 }

@@ -23,12 +23,31 @@
 }
 <button (click)="handleClick()">Thay đổi</button>
 <ul>
-    @for (todo of todos; track $index;let i=$index;let e=$even) {
-        @if(e){
-            <li [style.color]="'blue'">STT: {{i+1}}. {{todo.ten}} - Môn học: {{todo.monHoc}} - Độ ưu tiên: {{todo.douuTien}}</li>
-        }
-        @else{
-            <li [style.color]="'red'">STT: {{i+1}}. {{todo.ten}} - Môn học: {{todo.monHoc}} - Độ ưu tiên: {{todo.douuTien}}</li>
-        }
+    <ul>
+@for (todo of todos; track $index; let i=$index; let first=$first; let last=$last) {
+
+    @if(first){
+        <li style="font-weight:bold">
+            STT: {{i+1}} - {{todo.ten}} - {{todo.douuTien}}
+        </li>
     }
+    @else if(last){
+        <li style="font-style:italic">
+            STT: {{i+1}} - {{todo.ten}} - {{todo.douuTien}}
+        </li>
+    }
+    @else{
+        <li>
+            STT: {{i+1}} - {{todo.ten}} - {{todo.douuTien}}
+        </li>
+    }
+
+}
 </ul>
+<h2>Thêm công việc</h2>
+
+<input type="text" placeholder="Tên công việc" [(ngModel)]="tenCongViec">
+
+<input type="text" placeholder="Độ ưu tiên" [(ngModel)]="douuTienInput">
+
+<button (click)="handleAddTodo()">Submit</button>
